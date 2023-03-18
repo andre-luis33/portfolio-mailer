@@ -21,7 +21,7 @@ app.post('/mail', (req, res) => {
    return res.status(201).json({message: 'E-mail sent, thank you :)'});
 });
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
    console.log(`Server running is running at http://localhost:${port}`);
 });
