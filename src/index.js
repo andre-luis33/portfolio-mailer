@@ -9,6 +9,10 @@ const corsOptions = {
 }
 app.use(cors(corsOptions))
 
+app.get('/', (req, res) => {
+   return res.json({message: 'Welcome to the API'});
+});
+
 app.post('/mail', (req, res) => {
 
    const { name, email, message } = req.body;
