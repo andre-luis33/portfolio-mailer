@@ -5,7 +5,7 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-   origin: 'https://my-website-andre-luis33.vercel.app/',
+   origin: 'https://my-website-andre-luis33.vercel.app',
    methods: 'GET,POST'
 }
 
