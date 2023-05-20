@@ -5,9 +5,12 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-   origin: 'http://127.0.0.1:5500'
+   origin: 'https://my-website-andre-luis33.vercel.app/',
+   methods: 'GET,POST'
 }
+
 app.use(cors(corsOptions))
+
 
 app.post('/mail', (req, res) => {
 
@@ -23,5 +26,5 @@ app.post('/mail', (req, res) => {
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-   console.log(`Server running is running at http://localhost:${port}`);
+   console.log(`Server running is running at port ${port}`);
 });
