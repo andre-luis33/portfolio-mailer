@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const sendMail = require('./mailer');
 
 const app = express();
 app.use(express.json());
@@ -22,9 +23,8 @@ app.post('/mail', (req, res) => {
       return res.status(400).json({message: 'Missing required fields! {name}, {email} and {message}'});
    }
 
-   const sendMail = require('./mailer');
    sendMail(name, email, message);
-   return res.status(201).json({message: 'E-mail sent, thank you :)'});
+   return res.status(200).json({message: 'E-mail sent, thank you :)'});
 });
 
 const port = process.env.PORT || 3000;

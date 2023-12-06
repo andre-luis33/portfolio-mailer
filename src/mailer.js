@@ -1,17 +1,9 @@
-function sendMail(name, email, message) {
-   require('dotenv').config();
-   const nodemailer = require('nodemailer');
+require('dotenv').config();
+const { Resend } = require('resend')
 
-   const { MAIL_ADDRESS, MAIL_PASSWORD } = process.env
+async function sendMail(name, email, message) {
 
-   const transporter = nodemailer.createTransport({
-      service: 'outlook',
-      auth: {
-         user: MAIL_ADDRESS,
-         pass: MAIL_PASSWORD
-      }
-   });
-   
+   const { API_KEY } = process.env
    const mailBody = `
       Opa, alguém preencheu teu formulário! (ou quebrou a API....) <br>
 
@@ -20,24 +12,23 @@ function sendMail(name, email, message) {
       <b>Mensagem</b> ${message} <br><br>
 
       Então é isso, valeu!
-   `
+   ` 
 
-   const mailOptions = {
-      from: MAIL_ADDRESS,
-      to: 'andreluismoura22@gmail.com',
-      subject: 'Formulário do Portfólio',
-      text: 'Novo e-mail pelo portfólio!',
-      html: mailBody
-   };
-   
-   transporter.sendMail(mailOptions, (error, info) => {
-      if(error) {
-         console.log(error);
-         return;
-      }
-   
-      console.log(`Email sent!: ${info.response}`);
-   });
+   try {
+      const resend = new Resend(API_KEY);
+
+      const data = await resend.emails.send({
+        from: 'Resend <onboarding@resend.dev>',
+        to: 'andreluismoura22@gmail.com',
+        subject: 'Formulário do Portfólio',
+        html: mailBody,
+      });
+  
+      console.log(data);
+
+   } catch (error) {
+      console.error(error);
+   }
    
 }
 
